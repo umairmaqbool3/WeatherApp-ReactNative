@@ -17,7 +17,7 @@ const Result = ({weatherData}) => {
                   uri: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`,
                 }}
               />
-              <Text>SOmething here</Text>
+              {/* <Text>SOmething here</Text> */}
             </View>
               
             {/*</div>
