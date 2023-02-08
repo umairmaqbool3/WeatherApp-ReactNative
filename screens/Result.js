@@ -3,7 +3,7 @@ import {View, Text, Image} from 'react-native';
 
 const Result = ({weatherData}) => {
   return (
-    <View>
+    <View className="border mx-2 my-2 px-3 dark:border-orange-400">
       {weatherData.length !== 0 ? (
         <>
           <Text className="text-5xl mt-8 text-white text-center dark:text-white">

@@ -75,6 +75,19 @@ const App = () => {
         </View>
       </View>
       <Result weatherData={weather} />
+
+      <Text className=" text-3xl text-center block font-bold mt-2">History</Text>
+      <View className="w-full grid md:grid-cols-3 gap-4 shadow-lg p-3">
+        { 
+          history.map(
+            (item, index) => {
+              return <View className="border border-white cursor-pointer p-4" key={index}>
+                  <Text className="text-2xl text-center" onClick={() => historySearchHandler(item)}>{item}</Text>
+                </View>
+            }
+          )
+        }
+      </View>
     </View>
   );
 };
