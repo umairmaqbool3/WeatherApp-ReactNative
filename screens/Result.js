@@ -17,13 +17,13 @@ const Result = ({weatherData}) => {
               Min Temp: {weatherData.main.temp_min}
             </Text>
           </View>
-          <View className="text-2xl flex justify-around my-2 items-center">
+          <View className="flex my-2 items-center">
             <Image
               source={{
                 uri: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`,
               }}
             />
-            <Text>{weatherData.weather[0].main}</Text>
+            <Text className="text-xl">{weatherData.weather[0].main}</Text>
           </View>
         </>
       ) : (

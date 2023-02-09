@@ -1,11 +1,21 @@
 import React, {useState} from 'react';
-import {Text, View, TextInput, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  Alert,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import Result from './screens/Result';
 import Search from './screens/Search';
 import axios from 'axios';
 
 const App = () => {
   const [search, setSearch] = useState('');
+  const [show, setShow] = useState(false);
   const [weather, setWeather] = useState([]);
   const [history, setHistory] = useState([]);
 
@@ -14,7 +24,10 @@ const App = () => {
   };
 
   const searchWeatherHandler = () => {
+    console.log('1============> show is  : ', show);
+    setShow(true);
     console.log('============> In search weather handler : ', search);
+    console.log('2============> show is  : ', show);
     if (search !== '') {
       axios
         .get(
@@ -26,15 +39,18 @@ const App = () => {
             setHistory([...history, search]);
           }
           setWeather(response.data);
+          setShow(false);
         })
         .catch(error => {
           console.log(error);
+          setShow(false);
         });
     }
   };
 
   const historySearchHandler = async data => {
     await setSearch(data);
+    setShow(true);
     setSearch(data);
     if (data !== '') {
       axios
@@ -47,16 +63,20 @@ const App = () => {
           }
           // console.log(response.data);
           setWeather(response.data);
+          setShow(false);
         })
         .catch(error => {
           console.log(error);
+          setShow(false);
         });
     }
   };
 
   return (
     <View className="mt-8 px-2">
-      <Text className="text-5xl text-center text-white dark:text-orange-400">Weather App</Text>
+      <Text className="text-5xl text-center text-white dark:text-orange-400">
+        Weather App
+      </Text>
       <Text className="mb-5"></Text>
       <View className="px-4">
         <View className="mx-5 flex flex-row justify-evenly shadow-lg">
@@ -74,22 +94,44 @@ const App = () => {
           </TouchableOpacity>
         </View>
       </View>
+      <ActivityIndicator
+        size={80}
+        style={styles.indicator}
+        color="white"
+        animating={show}
+      />
       <Result weatherData={weather} />
 
-      <Text className=" text-3xl text-center block font-bold mt-2">History</Text>
-      <View className="w-full grid md:grid-cols-3 gap-4 shadow-lg p-3">
-        { 
-          history.map(
-            (item, index) => {
-              return <View className="border border-white cursor-pointer p-4" key={index}>
-                  <Text className="text-2xl text-center" onClick={() => historySearchHandler(item)}>{item}</Text>
-                </View>
-            }
-          )
-        }
+      <Text className=" text-3xl text-center block font-bold mt-2">
+        History
+      </Text>
+
+      <View className="w-full grid sm:grid-cols-2 gap-4 shadow-lg p-3">
+        {history.map((item, index) => {
+          return (
+            <View
+              className="border border-white cursor-pointer p-4"
+              key={index}>
+              <Text
+                className="text-2xl text-center"
+                onPress={() => historySearchHandler(item)}>
+                {item}
+              </Text>
+            </View>
+          );
+        })}
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  indicator: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+});
 
 export default App;
