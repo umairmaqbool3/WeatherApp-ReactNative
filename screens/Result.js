@@ -29,7 +29,7 @@ const Result = ({weatherData}) => {
       ) : (
         <>
           <Text className="text-2xl text-white mt-3 text-center dark:text-white">
-            Please enter the city name
+            
           </Text>
         </>
       )}

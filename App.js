@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import Result from './screens/Result';
 import Search from './screens/Search';
@@ -106,7 +107,23 @@ const App = () => {
         History
       </Text>
 
-      <View className="w-full grid sm:grid-cols-2 gap-4 shadow-lg p-3">
+      <FlatList
+        data={history}
+        renderItem={({item}) => 
+          <View
+            className="border border-white cursor-pointer p-4 mt-3"
+            >
+            <Text
+              className="text-2xl text-center"
+              onPress={() => historySearchHandler(item)}>
+              {item}
+            </Text>
+          </View>}
+        keyExtractor={item => item.id}
+      />
+      
+
+      {/* <View className="w-full grid sm:grid-cols-2 gap-4 shadow-lg p-3">
         {history.map((item, index) => {
           return (
             <View
@@ -120,7 +137,7 @@ const App = () => {
             </View>
           );
         })}
-      </View>
+      </View> */}
     </View>
   );
 };
