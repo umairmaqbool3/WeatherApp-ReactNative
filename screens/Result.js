@@ -18,6 +18,7 @@ const Result = ({weatherData}) => {
             </Text>
           </View>
           <View className="flex my-2 items-center">
+//             Image is not showing. some issue with the link
             <Image
               source={{
                 uri: `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`,
